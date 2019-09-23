@@ -37,7 +37,6 @@
         }.bind(this)
 
     }
-    if(window.Promise === undefined){
-        window.MainPromise = MainPromise;
-    }
+
+    window.MainPromise = MainPromise;
 })()
