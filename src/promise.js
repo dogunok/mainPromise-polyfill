@@ -11,15 +11,15 @@
         this.resolve = function(data) {
             if (!this.runningProcess) {
                 this.runningProcess = true;
-                this.thenChain.forEach(function(item) {
+                this.runQueue.forEach(function(item) {
                     data = item(data);
                 })
             }
         }.bind(this)
-        this.reject = function(error) { 
+        this.reject = function(error) {
             if (!this.runningProcess) {
                 this.runningProcess = true;
-                this.caught(error);
+                this.catch(error);
             }
         }.bind(this)
 
@@ -35,6 +35,10 @@
         this.then = function(funcThen){
             this.runQueue.push(funcThen)
         }.bind(this)
+
+        this.catch = function(funcCatch) {
+            return funcCatch;
+        }
 
     }
 
