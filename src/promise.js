@@ -12,10 +12,15 @@
             if (!this.runningProcess) {
                 this.runningProcess = true;
                 this.runQueue.forEach(function(item) {
-                    data = item(data);
+                    if(typeof(data) == 'object'){
+                        callback(item(data));
+                    } else {
+                        data = item(data)
+                    }
                 })
             }
         }.bind(this)
+
         this.reject = function(error) {
             if (!this.runningProcess) {
                 this.runningProcess = true;
@@ -34,13 +39,16 @@
 
         this.then = function(funcThen){
             this.runQueue.push(funcThen)
+
+            return this
         }.bind(this)
 
         this.catch = function(funcCatch) {
             return funcCatch;
         }
-
     }
+
 
     window.MainPromise = MainPromise;
 })()
+
